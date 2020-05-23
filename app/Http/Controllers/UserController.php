@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models; // App\Models クラスをインポートする
+use App\Models\User; // App\Models\User クラスをインポートする
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 //use App\Http\Requests\User;
@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function show($id)
     {
-        $user = User::find($id); // ユーザーID:1 のユーザー情報を取得して $user 変数に代入する
+        $user = User::find($id);
 
         return view('users.show', ['user' => $user]);
     }
@@ -28,8 +28,5 @@ class UserController extends Controller
         $user = Auth::user();
         $user->fill($request->all());
         $user->save();
-
-        dd('全然進まん');
-        //return redirect()->back()->with(['message' => '更新しました！']);
     }
 }

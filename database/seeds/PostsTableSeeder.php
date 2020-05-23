@@ -31,4 +31,9 @@ class PostsTableSeeder extends Seeder
             Post::create($data);
         }
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
