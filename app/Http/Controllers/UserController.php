@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User; // App\Models\User クラスをインポートする
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-//use App\Http\Requests\User;
 
 class UserController extends Controller
 {
@@ -28,5 +27,8 @@ class UserController extends Controller
         $user = Auth::user();
         $user->fill($request->all());
         $user->save();
+
+        return redirect()->back()->with(['mesaage' => '更新しました！']);
+        //dd('イライラする');
     }
 }

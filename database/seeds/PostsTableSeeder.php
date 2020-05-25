@@ -32,8 +32,4 @@ class PostsTableSeeder extends Seeder
         }
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }
