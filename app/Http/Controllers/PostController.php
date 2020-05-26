@@ -46,8 +46,9 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $post->load('replies.user');
+        $bookmarked = $post->bookmarkingUsers->contains(Auth::id());
 
-        return view('posts.show', ['post' => $post]);
+        return view('posts.show', ['post' => $post, 'bookmarked' => $bookmarked]);
     }
 
     public function reply(Request $request, Post $post)

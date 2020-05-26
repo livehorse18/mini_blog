@@ -19,4 +19,11 @@ class BookmarkController extends Controller
 
         return redirect()->back();
     }
+
+    public function remove(Post $post)
+    {
+        Auth::user()->bookmarkingPosts()->detach($post->id);
+
+        return redirect()->back();
+    }
 }
