@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\HTTP\Request\User\StoreRequest;
+use App\HTTP\Requests\User\StoreRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -30,12 +31,37 @@ class PostController extends Controller
         return redirect()->to('/'); // '/'にリダイレクト
     }
 
-    public function destroy(Post $post)
+    public function delete(Post $post)
     {
-        abort(403);
-        
+        // 投稿者本人でなければ削除を許可しない
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
         $post->delete();
     
         return redirect()->to('/');
     }
+
+    public function show(Post $post)
+    {
+        $post->load('replies.user');
+
+        return view('posts.show', ['post' => $post]);
+    }
+
+    public function reply(Request $request, Post $post)
+    {
+        $reply = new Reply;
+        $reply->fill($request->all());
+        $reply->user()->associate(Auth::user());
+        $reply->post()->associate($post);
+        $reply->save();
+
+        return redirect()->back();
+    }
+
+    //public function __construct(){
+    //    $this->middleware('can:delete, userBook')->only('delete');
+    //}
 }

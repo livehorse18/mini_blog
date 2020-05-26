@@ -60,6 +60,9 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
+                                <a class="dropdown-item" href="{{ route('posts.create') }}">投稿する</a>
+                                <a class="dropdown-item" href="{{ route('bookmarks.index') }}">ブックマーク</a>
+
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item" href="{{ route('posts.create') }}">投稿する</a>
