@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,7 +34,7 @@ Route::prefix('posts')->as('posts.')->group(function () {
         Route::get('create', 'PostController@create')->name('create');
         Route::post('store', 'PostController@store')->name('store');
         Route::post('{post}/delete', 'PostController@delete')->name('delete');
-        Route::post('{post}/reply', 'PostController@reply')->name('reply');
+        Route::post('reply', 'ReplyController@reply')->name('reply');
     });
 
     // auth が適用されない (ログインしてなくても閲覧可)

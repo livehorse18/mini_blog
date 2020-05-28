@@ -10,13 +10,6 @@
 
                     <p class="card-text"><a href="{{ route('posts.show', $post->id) }}">詳細を見る</a></p>
 
-                    
-                   
-                        <form method="POST" action="{{ route('bookmarks.add', $post->id) }}">
-                            @csrf
-                            <button type="submit" class="btn btn-success">ブックマークする</button>
-                        </form>
-                
 
                     @if(Auth::id() === $post->user_id)
                         <form method="POST" action="{{ route('posts.delete', $post->id) }}">

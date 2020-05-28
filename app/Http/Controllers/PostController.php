@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Reply;
 use App\HTTP\Requests\User\StoreRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['user'])->orderBy('created_at', 'desc')->get();
+        $posts = Post::with(['user'])->latest()->get();
 
         return view('index', ['posts' => $posts]);
     }
@@ -58,11 +59,7 @@ class PostController extends Controller
         $reply->user()->associate(Auth::user());
         $reply->post()->associate($post);
         $reply->save();
-
+    
         return redirect()->back();
     }
-
-    //public function __construct(){
-    //    $this->middleware('can:delete, userBook')->only('delete');
-    //}
 }
