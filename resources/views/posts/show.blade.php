@@ -7,10 +7,24 @@
             <div class="card-body">
                 <p class="card-text">{{ $post->body }}</p>
                 @auth
+<<<<<<< HEAD
                     <form method="POST" action="{{ route('bookmarks.add', $post->id) }}">
                         @csrf
                         <button type="submit" class="btn btn-success">ブックマークする</button>
                     </form>
+=======
+                    @unless($bookmarked)
+                        <form method="POST" action="{{ route('bookmarks.add', $post->id) }}">
+                            @csrf
+                            <button type="submit" class="btn btn-success">ブックマークする</button>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('bookmarks.remove', $post->id) }}">
+                            @csrf
+                            <button type="submit" class="btn btn-warning">ブックマークを解除する</button>
+                        </form>
+                    @endunless
+>>>>>>> develop
                 @endauth
             </div>
         </div>

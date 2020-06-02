@@ -10,6 +10,10 @@
 
                     <p class="card-text"><a href="{{ route('posts.show', $post->id) }}">詳細を見る</a></p>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
                     @if(Auth::id() === $post->user_id)
                         <form method="POST" action="{{ route('posts.delete', $post->id) }}">
                             @csrf

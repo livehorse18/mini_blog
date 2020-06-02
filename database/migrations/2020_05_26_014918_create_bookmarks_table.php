@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateBookmarksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('bookmarks', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
-            $table->string('body');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->unsignedBigInteger('post_id');
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -28,7 +26,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('bookmarks');
     }
-
 }

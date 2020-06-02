@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +15,7 @@
 */
 
 Route::get('/', 'PostController@index');
+Route::get('index', 'PostController@index');
 
 Auth::routes();
 
@@ -22,4 +26,23 @@ Route::get('/users/{id}', 'UserController@show');
 Route::middleware('auth')->group(function () {
     Route::get('me', 'UserController@edit');
     Route::post('me', 'UserController@update')->name('users.update');
+});
+
+Route::prefix('posts')->as('posts.')->group(function () {
+    // auth が適用される (ログインユーザーのみ許可)
+    Route::middleware('auth')->group(function () {
+        Route::get('create', 'PostController@create')->name('create');
+        Route::post('store', 'PostController@store')->name('store');
+        Route::post('{post}/delete', 'PostController@delete')->name('delete');
+        Route::post('{post}reply', 'PostController@reply')->name('reply');
+    });
+
+    // auth が適用されない (ログインしてなくても閲覧可)
+    Route::get('{post}', 'PostController@show')->name('show');
+});
+
+Route::middleware('auth')->prefix('bookmarks')->as('bookmarks.')->group(function () {
+    Route::get('/', 'BookmarkController@index')->name('index');
+    Route::post('{post}', 'BookmarkController@add')->name('add');
+    Route::post('{post}/remove', 'BookmarkController@remove')->name('remove');
 });
